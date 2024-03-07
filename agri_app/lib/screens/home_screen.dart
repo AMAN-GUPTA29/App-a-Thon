@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/provider/signin_provider.dart';
+import '../provider/signin_provider.dart';
+
+import '../widgets/drawer_widget.dart';
+
+enum FilterOptions { signOut, viewProfile }
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,15 +21,46 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Farm Hub"),
         actions: [
-          TextButton.icon(
-            onPressed: () => signInProvider.signOut(),
-            icon: const Icon(Icons.exit_to_app),
-            label: const Text("Sign Out"),
-          )
+          PopupMenuButton(
+            onSelected: (FilterOptions selectedValue) {
+              if (selectedValue == FilterOptions.signOut) {
+                signInProvider.signOut();
+              }
+            },
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: FilterOptions.signOut,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.exit_to_app),
+                    SizedBox(width: 10),
+                    Text("Sign Out"),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: FilterOptions.viewProfile,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.person),
+                    SizedBox(width: 10),
+                    Text("View Profile"),
+                  ],
+                ),
+              ),
+            ],
+            icon: const Icon(Icons.more_vert),
+          ),
         ],
       ),
-      body: const Placeholder(),
+      drawer: const DrawerWidget(),
+      body: Center(
+        child: Text("HELLO ${FirebaseAuth.instance.currentUser!.displayName!}"),
+      ),
     );
   }
 }

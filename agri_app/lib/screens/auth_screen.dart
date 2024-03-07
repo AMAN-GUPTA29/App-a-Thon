@@ -22,9 +22,10 @@ class AuthScreen extends StatelessWidget {
         } else {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Placeholder(),
-              SizedBox(height: height * 0.3),
+              SizedBox(height: height * 0.15),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: ElevatedButton(
