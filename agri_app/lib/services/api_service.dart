@@ -20,6 +20,17 @@ class ApiService {
     return model.generateContent(content);
   }
 
+    Future<GenerateContentResponse> diseaseInformation(
+      {required String diseaseName}) async {
+    final apiKey = API_GEMINI;
+    final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
+    final content = [
+      Content.text(
+          'Upon receiving the name of a plant disease, provide information about the disease. This information should be concise, clear, and limited to one sentence each. No additional information or context is needed—only the three pieces of information in bullet-point format. The disease is $diseaseName')
+    ];
+    return model.generateContent(content);
+  }
+
   Future<GenerateContentResponse> sendImageToGPT4Vision({
     required File image,
     int maxTokens = 50,
