@@ -24,7 +24,7 @@ class AuthScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Placeholder(),
+              Image.asset(Constants.appLogo, height: height * 0.15),
               SizedBox(height: height * 0.15),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
