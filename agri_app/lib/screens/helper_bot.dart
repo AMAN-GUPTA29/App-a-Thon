@@ -79,6 +79,11 @@ class _ChatbotState extends State<Chatbot> {
     } catch (error) {
       _showErrorSnackBar(error);
     }
+    finally{
+      setState(() {
+        typers = [];
+      });
+    }
   }
 
   @override
