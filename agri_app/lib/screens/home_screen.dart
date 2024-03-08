@@ -20,44 +20,40 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-@override
-void initState() {
-cropdata();
+  @override
+  void initState() {
+    cropdata();
     super.initState();
   }
 
-  bool loadingdata=false;
+  bool loadingdata = false;
   var crops;
 
-  void cropdata()async{
-
+  void cropdata() async {
     setState(() {
-     loadingdata=true;
+      loadingdata = true;
     });
 
-       print("inside");
-    try{
-      var response3 =await Dio().get('https://agriapp-3b18f-default-rtdb.firebaseio.com/crops.json');
+    print("inside");
+    try {
+      var response3 = await Dio()
+          .get('https://agriapp-3b18f-default-rtdb.firebaseio.com/crops.json');
       if (response3.statusCode! >= 200 && response3.statusCode! <= 300) {
         setState(() {
-            print(response3.data);
-            crops=response3.data;
-            print(crops.length);
-            print("insisde");
+          print(response3.data);
+          crops = response3.data;
+          print(crops.length);
+          print("insisde");
         });
       }
-    }catch(e){
+    } catch (e) {
       print("insssside");
     }
 
-
-     setState(() {
-     loadingdata=false;
+    setState(() {
+      loadingdata = false;
     });
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +74,12 @@ cropdata();
             children: [
               Stack(
                 children: [
-                  CircleAvatar(backgroundColor: Colors.white,
-                    child: Container(height: 50,width: 50, child: Image.network(image)),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Container(
+                        height: 50, width: 50, child: Image.network(image)),
                     minRadius: 30,
                   ), // Only show the text if count is not null
-                  
                 ],
               ),
               const SizedBox(height: 5),
@@ -111,104 +108,111 @@ cropdata();
       );
     }
 
-    return loadingdata==true?const Scaffold(body: Center(
-                  child: CircularProgressIndicator(color: Colors.green),
-                ),) :Scaffold(
-      appBar: AppBar(
-        title: const Text("Farm Hub"),
-        actions: [
-          PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) {
-              if (selectedValue == FilterOptions.signOut) {
-                signInProvider.signOut();
-              }
-            },
-            itemBuilder: (_) => [
-              const PopupMenuItem(
-                value: FilterOptions.signOut,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(Icons.exit_to_app),
-                    SizedBox(width: 10),
-                    Text("Sign Out"),
-                  ],
-                ),
-              ),
-              const PopupMenuItem(
-                value: FilterOptions.viewProfile,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(Icons.person),
-                    SizedBox(width: 10),
-                    Text("View Profile"),
-                  ],
-                ),
-              ),
-            ],
-            icon: const Icon(Icons.more_vert),
-          ),
-        ],
-      ),
-      drawer: const DrawerWidget(),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.lightGreen,
-                      minRadius: 30,
-                      child: Icon(Icons.add),
+    return loadingdata == true
+        ? const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(color: Colors.green),
+            ),
+          )
+        : Scaffold(
+            appBar: AppBar(
+              title: const Text("Farm Hub"),
+              actions: [
+                PopupMenuButton(
+                  onSelected: (FilterOptions selectedValue) {
+                    if (selectedValue == FilterOptions.signOut) {
+                      signInProvider.signOut();
+                    }
+                  },
+                  itemBuilder: (_) => [
+                    const PopupMenuItem(
+                      value: FilterOptions.signOut,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.exit_to_app),
+                          SizedBox(width: 10),
+                          Text("Sign Out"),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 5),
-                    Text("Add"),
+                    const PopupMenuItem(
+                      value: FilterOptions.viewProfile,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.person),
+                          SizedBox(width: 10),
+                          Text("View Profile"),
+                        ],
+                      ),
+                    ),
                   ],
+                  icon: const Icon(Icons.more_vert),
                 ),
-                for(var item in crops) InkWell(onTap: () {
-                  
-                }, child: cropWidget(item["imageUrl"], item["name"], 10)),
-                // cropWidget(Constants.bananaImage, "Banana", 10),
-                // cropWidget(Constants.sugarcaneImage, "SugarCane", 11),
-                // cropWidget(Constants.maizeImage, "Maize", 15),
               ],
             ),
-          ),
-          SizedBox(height: height * 0.1),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(Constants.smartFarmerImage),
-            ),
-          ),
-          SizedBox(height: height * 0.05),
-          Container(
-            margin: EdgeInsets.only(top: height * 0.05),
-            height: height * 0.7,
-            child: GridView(
-              scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1 / 1,
-              ),
+            drawer: const DrawerWidget(),
+            body: Column(
               children: [
-                functionalityWidget(Icons.shopping_cart, "Shop"),
-                functionalityWidget(Icons.book, "Best Practices"),
-                functionalityWidget(Icons.people, "Community"),
-                functionalityWidget(Icons.label, "News"),
-                functionalityWidget(Icons.comment, "Blog"),
-                functionalityWidget(Icons.video_call, "Videos")
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Column(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.lightGreen,
+                            minRadius: 30,
+                            child: Icon(Icons.add),
+                          ),
+                          SizedBox(height: 5),
+                          Text("Add"),
+                        ],
+                      ),
+                      for (var item in crops)
+                        InkWell(
+                            onTap: () {},
+                            child:
+                                cropWidget(item["imageUrl"], item["name"], 10)),
+                      // cropWidget(Constants.bananaImage, "Banana", 10),
+                      // cropWidget(Constants.sugarcaneImage, "SugarCane", 11),
+                      // cropWidget(Constants.maizeImage, "Maize", 15),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height * 0.1),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(Constants.smartFarmerImage),
+                  ),
+                ),
+                SizedBox(height: height * 0.05),
+                Container(
+                  margin: EdgeInsets.only(top: height * 0.05),
+                  height: height * 0.7,
+                  child: GridView(
+                    scrollDirection: Axis.vertical,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1 / 1,
+                    ),
+                    children: [
+                      functionalityWidget(Icons.shopping_cart, "Shop"),
+                      functionalityWidget(Icons.book, "Best Practices"),
+                      functionalityWidget(Icons.people, "Community"),
+                      functionalityWidget(Icons.label, "News"),
+                      functionalityWidget(Icons.comment, "Blog"),
+                      functionalityWidget(Icons.video_call, "Videos")
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }

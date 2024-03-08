@@ -1,5 +1,6 @@
 import 'package:agri_app/screens/weather.dart';
 import 'package:flutter/material.dart';
+import 'package:agri_app/screens/test.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -48,6 +49,7 @@ class DrawerWidget extends StatelessWidget {
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Weather()))),
                 const Divider(),
+                listItem("Disease detection", Icons.coronavirus, ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const HomePageTest())))
               ],
             ),
           ],
