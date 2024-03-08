@@ -6,4 +6,6 @@ class Constants {
   static const maizeImage = "assets/maize.jpeg";
   static const sugarcaneImage = "assets/sugarcane.jpeg";
   static const smartFarmerImage = "assets/Smart-farming-LetsNurture.jpg";
+  static const loginbackground="assets/loginimage.png";
+  static const logonew="assets/logo-no-backgroundnew.png";
 }

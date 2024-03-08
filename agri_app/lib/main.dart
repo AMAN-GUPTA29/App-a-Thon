@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
         if (snapshot.hasData) {
           return const HomeScreen();
         } else {
-          return const AuthScreen();
+          return  AuthScreen();
         }
       },
     );
