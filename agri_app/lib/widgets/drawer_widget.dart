@@ -1,3 +1,4 @@
+import 'package:agri_app/screens/weather.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -21,7 +22,8 @@ class DrawerWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: height * 0.05),
-                const Text("Sample 1"),
+                InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const Weather()),);},child: const Text("Sample 1")),
                 const Divider(height: 50),
                 const Text("Sample 2"),
                 const Divider(height: 50),
