@@ -1,3 +1,4 @@
+import 'package:agri_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class FormScreen extends StatefulWidget {
@@ -119,7 +120,8 @@ class FormScreenState extends State<FormScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => print(selectedCrops),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomeScreen())),
               child: const Text('Submit'),
             ),
           ],
