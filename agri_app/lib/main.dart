@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:agri_app/provider/userdata_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,8 +9,7 @@ import '/provider/signin_provider.dart';
 
 import '/config/firebase_options.dart';
 
-import '/screens/auth_screen.dart';
-import '/screens/home_screen.dart';
+import 'config/home_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SignInProvider()),
+        ChangeNotifierProvider(create: (_) => UserDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -35,26 +35,8 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(),
           useMaterial3: true,
         ),
-        home: const Home(),
+        home: const HomeConfig(),
       ),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return const HomeScreen();
-        } else {
-          return  AuthScreen();
-        }
-      },
     );
   }
 }
