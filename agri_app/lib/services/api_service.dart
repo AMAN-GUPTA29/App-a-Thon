@@ -43,7 +43,7 @@ class ApiService {
     final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
     final content = [
       Content.text(
-          'You are talking with a farmer.You are a multilingual model and can respond in Hindi and English and several other languages. If you do not understand the given language then reply with "I do not understand this language . Please type in English or Hindi." Your task is to assist the farmer in whichever way possible. If any other questions are asked then politely decline to answer them stating that you are specifically designed to answer farming related issues.Your output should be in simple string formatt. Chat:$text')
+          'You are talking with a farmer.You are a multilingual model and can respond in several languages. Default reply should be in english unless user specifies language to be Hindi. If you do not understand the given language then reply with "I do not understand this language . Please type in English or Hindi." Your task is to assist the farmer in whichever way possible. If any other questions are asked then politely decline to answer them stating that you are specifically designed to answer farming related issues.Your output should be in simple string formatt. Chat:$text')
     ];
     return model.generateContent(content);
   }
