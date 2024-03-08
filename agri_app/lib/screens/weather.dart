@@ -28,6 +28,7 @@ class _WeatherState extends State<Weather> {
           'https://api.openweathermap.org/data/2.5/weather?q=tada&appid=730d719ac3bd3c2ae02d0483af92253f&units=metric');
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         weatherInfo = response.data;
+        print(weatherInfo);
       }
     } catch (e) {
       setState(() => isError = true);
@@ -51,8 +52,15 @@ class _WeatherState extends State<Weather> {
                 )
               : Column(
                   children: [
-                    Container(
-                      child: Text("Place:"),
+                    Row(
+                      children: [
+                        Container(
+                          height: 180,
+                          child: Image.asset("assets/cloud.png"),
+                        ),
+                        SizedBox(width: 10,),
+                        Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("${weatherInfo["weather"][0]["description"]} today",style: TextStyle(fontFamily: "cursive",fontSize: 25),)],)
+                      ],
                     ),
                   ],
                 ),

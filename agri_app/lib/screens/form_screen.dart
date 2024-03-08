@@ -1,5 +1,7 @@
+import 'package:agri_app/provider/userdata_provider.dart';
 import 'package:agri_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -10,7 +12,7 @@ class FormScreen extends StatefulWidget {
 
 class FormScreenState extends State<FormScreen> {
   late String name;
-  late Map<String, DateTime> cropDetail = {};
+  late Map<String, String> cropDetail = {};
   late double landArea;
 
   List<String> predefinedCrops = ['Maize', 'Rice', 'Wheat'];
@@ -20,7 +22,13 @@ class FormScreenState extends State<FormScreen> {
   int count = 1;
 
   void formHandler() {
-
+    for (int i = 0; i < selectedCrops.length; i++) {
+      cropDetail[selectedCrops[i]] = sowingDates[selectedCrops[i]].toString()!;
+    }
+    Provider.of<UserDataProvider>(context, listen: false)
+        .setData(name, cropDetail, landArea);
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   @override
@@ -120,8 +128,7 @@ class FormScreenState extends State<FormScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HomeScreen())),
+              onPressed: formHandler,
               child: const Text('Submit'),
             ),
           ],

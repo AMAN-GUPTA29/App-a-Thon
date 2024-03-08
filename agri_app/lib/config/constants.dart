@@ -8,4 +8,5 @@ class Constants {
   static const smartFarmerImage = "assets/Smart-farming-LetsNurture.jpg";
   static const loginbackground="assets/loginimage.png";
   static const logonew="assets/logo-no-backgroundnew.png";
+  static const wether="assets/wether.jpeg";
 }

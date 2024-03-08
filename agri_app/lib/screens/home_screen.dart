@@ -1,4 +1,5 @@
 import 'package:agri_app/config/constants.dart';
+import 'package:agri_app/screens/weather.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Stack(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.black,
                     child: Container(
                         height: 50, width: 50, child: Image.network(image)),
                     minRadius: 30,
@@ -90,18 +91,20 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    Widget functionalityWidget(IconData icon, String text) {
+    Widget functionalityWidget(String image, String text) {
       return Padding(
         padding: const EdgeInsets.all(8),
         child: InkWell(
-          child: Card(
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(icon),
-                Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
-              ],
+          child: Container(
+            child: Card(
+              elevation: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(height: height*0.36,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image.asset(image,fit: BoxFit.fill,)),),
+                  Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
             ),
           ),
         ),
@@ -115,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           )
         : Scaffold(
-            appBar: AppBar(
+            appBar: AppBar(backgroundColor:  Color.fromARGB(100, 165, 59, 0),
               title: const Text("Farm Hub"),
               actions: [
                 PopupMenuButton(
@@ -153,61 +156,78 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             drawer: const DrawerWidget(),
-            body: Column(
+            body: Stack(
               children: [
+                Container(height: double.infinity,width: double.infinity,decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter,
+                  colors: [
+                    Color.fromARGB(100, 165, 59, 0),
+                    Color.fromARGB(180, 26, 85, 42),
+                  ],
+                  stops: [
+                    0.0,
+                    1.0
+                  ])),),
                 SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  // scrollDirection: Axis.vertical,
+                  child: Column(
                     children: [
-                      const Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.lightGreen,
-                            minRadius: 30,
-                            child: Icon(Icons.add),
-                          ),
-                          SizedBox(height: 5),
-                          Text("Add"),
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.lightGreen,
+                                  minRadius: 30,
+                                  child: Icon(Icons.add),
+                                ),
+                                SizedBox(height: 5),
+                                Text("Add"),
+                              ],
+                            ),
+                            for (var item in crops)
+                              InkWell(
+                                  onTap: () {},
+                                  child:
+                                      cropWidget(item["imageUrl"], item["name"], 10)),
+                            // cropWidget(Constants.bananaImage, "Banana", 10),
+                            // cropWidget(Constants.sugarcaneImage, "SugarCane", 11),
+                            // cropWidget(Constants.maizeImage, "Maize", 15),
+                          ],
+                        ),
                       ),
-                      for (var item in crops)
-                        InkWell(
-                            onTap: () {},
-                            child:
-                                cropWidget(item["imageUrl"], item["name"], 10)),
-                      // cropWidget(Constants.bananaImage, "Banana", 10),
-                      // cropWidget(Constants.sugarcaneImage, "SugarCane", 11),
-                      // cropWidget(Constants.maizeImage, "Maize", 15),
-                    ],
-                  ),
-                ),
-                SizedBox(height: height * 0.1),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(Constants.smartFarmerImage),
-                  ),
-                ),
-                SizedBox(height: height * 0.05),
-                Container(
-                  margin: EdgeInsets.only(top: height * 0.05),
-                  height: height * 0.7,
-                  child: GridView(
-                    scrollDirection: Axis.vertical,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1,
-                    ),
-                    children: [
-                      functionalityWidget(Icons.shopping_cart, "Shop"),
-                      functionalityWidget(Icons.book, "Best Practices"),
-                      functionalityWidget(Icons.people, "Community"),
-                      functionalityWidget(Icons.label, "News"),
-                      functionalityWidget(Icons.comment, "Blog"),
-                      functionalityWidget(Icons.video_call, "Videos")
+                      SizedBox(height: height * 0.03),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(Constants.smartFarmerImage),
+                        ),
+                      ),
+                      SizedBox(height: height * 0.05),
+                      Container(
+                        margin: EdgeInsets.only(top: height * 0.05),
+                        height: height * 0.8,
+                        child: GridView(
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1 / 1,
+                          ),
+                          children: [
+                            InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Weather()));},child: functionalityWidget("assets/wether.jpeg", "Weather")),
+                           
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

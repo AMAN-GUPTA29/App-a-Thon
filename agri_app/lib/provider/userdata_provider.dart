@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 class UserDataProvider with ChangeNotifier {
   late String name;
-  late Map<String, DateTime> cropDetail;
+  late Map<String, String> cropDetail;
   late double landArea;
 
   bool isLoading = false;
@@ -26,5 +26,27 @@ class UserDataProvider with ChangeNotifier {
   }
 
   Future<void> setData(
-      String name, Map<String, DateTime> cropDetail, double landArea) async {}
+      String name, Map<String, String> cropDetail, double landArea) async {
+    try {
+      User user = FirebaseAuth.instance.currentUser!;
+      DatabaseReference ref = FirebaseDatabase.instance.ref(user.uid);
+
+      // Update local state
+      this.name = name;
+      this.cropDetail = cropDetail;
+      this.landArea = landArea;
+      notifyListeners(); // Notify listeners about the state change
+
+      // Set data in Firebase Realtime Database
+      await ref.set({
+        'name': name,
+        'cropDetail': cropDetail,
+        'landArea': landArea,
+      });
+    } catch (e) {
+      // Handle error
+      print('Error setting data: $e');
+    }
+  }
 }
+

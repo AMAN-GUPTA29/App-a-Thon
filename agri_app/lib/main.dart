@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Farm Hub',
         theme: ThemeData(
-          colorScheme: const ColorScheme.light(),
+          colorScheme: const ColorScheme.dark(),
           useMaterial3: true,
         ),
         home: const HomeConfig(),
