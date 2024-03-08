@@ -1,18 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import '../constants/api_constants.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class ApiService {
-  final Dio _dio = Dio();
-
   Future<String> encodeImage(File image) async {
     final bytes = await image.readAsBytes();
     return base64Encode(bytes);
   }
 
-  Future<GenerateContentResponse> sendMessageGPT({required String diseaseName}) async {
+  Future<GenerateContentResponse> sendMessageGPT(
+      {required String diseaseName}) async {
     final apiKey = API_GEMINI;
     final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
     final content = [
@@ -37,5 +35,16 @@ class ApiService {
     return model.generateContent([
       Content.multi([prompt, ...imageParts])
     ]);
+  }
+
+  Future<GenerateContentResponse> sendMessageGemini(
+      {required String text}) async {
+    final apiKey = API_GEMINI;
+    final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
+    final content = [
+      Content.text(
+          'You are talking with a farmer.You are a multilingual model and can respond in Hindi and English and several other languages. If you do not understand the given language then reply with "I do not understand this language . Please type in English or Hindi." Your task is to assist the farmer in whichever way possible. If any other questions are asked then politely decline to answer them stating that you are specifically designed to answer farming related issues.Your output should be in simple string formatt. Chat:$text')
+    ];
+    return model.generateContent(content);
   }
 }
