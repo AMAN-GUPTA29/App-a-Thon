@@ -5,6 +5,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:agri_app/constants/constants.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../services/api_service.dart';
@@ -39,8 +40,8 @@ class _MyHomePageState extends State<HomePageTest> {
       detecting = true;
     });
     try {
-      diseaseName =
-          await apiService.sendImageToGPT4Vision(image: _selectedImage!);
+      GenerateContentResponse temp = await apiService.sendImageToGPT4Vision(image: _selectedImage!);
+      diseaseName = temp.text!;
     } catch (error) {
       _showErrorSnackBar(error);
     } finally {
@@ -56,8 +57,8 @@ class _MyHomePageState extends State<HomePageTest> {
     });
     try {
       if (diseasePrecautions == '') {
-        diseasePrecautions =
-            await apiService.sendMessageGPT(diseaseName: diseaseName);
+        GenerateContentResponse temp2 = await apiService.sendMessageGPT(diseaseName: diseaseName);
+        diseasePrecautions = temp2.text!;
       }
       _showSuccessDialog(diseaseName, diseasePrecautions);
     } catch (error) {
