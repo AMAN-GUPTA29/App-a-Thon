@@ -1,4 +1,5 @@
 import 'package:agri_app/config/constants.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,52 @@ import '../widgets/drawer_widget.dart';
 
 enum FilterOptions { signOut, viewProfile }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+@override
+void initState() {
+cropdata();
+    super.initState();
+  }
+
+  bool loadingdata=false;
+  var crops;
+
+  void cropdata()async{
+
+    setState(() {
+     loadingdata=true;
+    });
+
+       print("inside");
+    try{
+      var response3 =await Dio().get('https://agriapp-3b18f-default-rtdb.firebaseio.com/crops.json');
+      if (response3.statusCode! >= 200 && response3.statusCode! <= 300) {
+        setState(() {
+            print(response3.data);
+            crops=response3.data;
+            print(crops.length);
+            print("insisde");
+        });
+      }
+    }catch(e){
+      print("insssside");
+    }
+
+
+     setState(() {
+     loadingdata=false;
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +78,11 @@ class HomeScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(image),
+                  CircleAvatar(backgroundColor: Colors.white,
+                    child: Container(height: 50,width: 50, child: Image.network(image)),
                     minRadius: 30,
                   ), // Only show the text if count is not null
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(3),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Text(
-                        count.toString(),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
+                  
                 ],
               ),
               const SizedBox(height: 5),
@@ -80,7 +111,9 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
+    return loadingdata==true?const Scaffold(body: Center(
+                  child: CircularProgressIndicator(color: Colors.green),
+                ),) :Scaffold(
       appBar: AppBar(
         title: const Text("Farm Hub"),
         actions: [
@@ -124,6 +157,7 @@ class HomeScreen extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Column(
                   children: [
@@ -136,9 +170,12 @@ class HomeScreen extends StatelessWidget {
                     Text("Add"),
                   ],
                 ),
-                cropWidget(Constants.bananaImage, "Banana", 10),
-                cropWidget(Constants.sugarcaneImage, "SugarCane", 11),
-                cropWidget(Constants.maizeImage, "Maize", 15),
+                for(var item in crops) InkWell(onTap: () {
+                  
+                }, child: cropWidget(item["imageUrl"], item["name"], 10)),
+                // cropWidget(Constants.bananaImage, "Banana", 10),
+                // cropWidget(Constants.sugarcaneImage, "SugarCane", 11),
+                // cropWidget(Constants.maizeImage, "Maize", 15),
               ],
             ),
           ),

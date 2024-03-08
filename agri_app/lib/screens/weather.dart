@@ -46,6 +46,12 @@ void getlocationdata()async{
     }catch(e){
       print("insssside");
     }
+
+
+
+
+
+
     print("insiccde");
 
     setState(() {
