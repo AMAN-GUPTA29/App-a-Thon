@@ -145,7 +145,10 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: height * 0.1),
           Container(
             padding: const EdgeInsets.all(8),
-            child: Image.asset(Constants.smartFarmerImage),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(Constants.smartFarmerImage),
+            ),
           ),
           SizedBox(height: height * 0.05),
           Container(
