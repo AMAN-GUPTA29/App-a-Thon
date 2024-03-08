@@ -1,3 +1,4 @@
+import 'package:agri_app/screens/calender_screen.dart';
 import 'package:agri_app/screens/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_app/screens/test.dart';
@@ -38,10 +39,10 @@ class DrawerWidget extends StatelessWidget {
               children: [
                 SizedBox(height: height * 0.05),
                 listItem(
-                    "Weather Info",
-                    Icons.cloud,
+                    "Calender",
+                    Icons.calendar_month,
                     () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Weather()))),
+                        builder: (_) => const CalenderScreen()))),
                 const Divider(),
                 listItem(
                     "Weather Info",

@@ -15,12 +15,17 @@ class UserDataProvider with ChangeNotifier {
       DatabaseReference ref = FirebaseDatabase.instance.ref(user.uid);
       final snapshot = await ref.get();
       if (snapshot.exists) {
-        print(snapshot.value);
+        Map<dynamic, dynamic> data =
+            Map<dynamic, dynamic>.from(snapshot.value as Map<dynamic, dynamic>);
+        name = data['name'] ?? '';
+        cropDetail = Map<String, String>.from(data['cropDetail'] ?? {});
+        landArea = (data['landArea'] ?? 0).toDouble();
         return true;
       } else {
         return false;
       }
     } catch (e) {
+      print("error: $e");
       return false;
     }
   }

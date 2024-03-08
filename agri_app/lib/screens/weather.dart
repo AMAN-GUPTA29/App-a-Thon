@@ -50,20 +50,89 @@ class _WeatherState extends State<Weather> {
                         "Unable to fetch data. Please check your internet connection and refresh!"),
                   ),
                 )
-              : Column(
-                  children: [
-                    Row(
+              : Stack(
+                children: [
+                  Container(height: double.infinity,width: double.infinity,decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter,
+                  colors: [
+                    Colors.white,
+                    Color.fromARGB(200, 155, 154, 154),
+                  ],
+                  stops: [
+                    0.0,
+                    1.0
+                  ])),),
+                  Column(
                       children: [
-                        Container(
-                          height: 180,
-                          child: Image.asset("assets/cloud.png"),
+                        Row(
+                          children: [
+                            Container(
+                              height: 180,
+                              child: Image.asset("assets/cloud.png"),
+                            ),
+                            const SizedBox(width:7,),
+                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("${weatherInfo["weather"][0]["description"]} today",style: TextStyle(fontFamily: "cursive",fontSize: 30),),   
+                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Humidity ${weatherInfo["main"]["humidity"]}",style: TextStyle(fontFamily: "Roberto",fontSize: 20),)],),
+                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Temprature ${weatherInfo["main"]["temp"]}",style: TextStyle(fontFamily: "Roberto",fontSize: 20),)],)],),
+                         
+                          ],
                         ),
-                        SizedBox(width: 10,),
-                        Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("${weatherInfo["weather"][0]["description"]} today",style: TextStyle(fontFamily: "cursive",fontSize: 25),)],)
+                        Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Minimum Temprature ${weatherInfo["main"]["temp_min"]}",style: TextStyle(fontFamily: "cursive",fontSize: 16),),SizedBox(width:20,),Text("Max Temprature ${weatherInfo["main"]["temp_max"]} ",style: TextStyle(fontFamily: "cursive",fontSize: 16),)],),
+                        SizedBox(height: 20,),
+                        Container(
+                              height: 100,
+                              child: Image.asset("assets/House.png"),
+                            ),
+                            SizedBox(height: 30,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: [Text("Good Day To Farm",style: TextStyle(fontFamily: "cursive",fontSize: 30))],),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                    
+                                Container(decoration: BoxDecoration(color: Color.fromARGB(199, 148, 147, 147),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(children: [Icon(Icons.visibility,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["visibility"]}",style: TextStyle(fontSize: 20),),Text("Visibility",style: TextStyle(fontSize: 10),)],),
+                                ),),
+                                SizedBox(width: 20,),
+                                Container(decoration: BoxDecoration(color: Color.fromARGB(199, 148, 147, 147),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(children: [Icon(Icons.place,size: 28,),SizedBox(height: 4,),Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("${weatherInfo["coord"]["lat"]}".substring(0,5),style: TextStyle(fontSize: 20),),
+                                      SizedBox(width: 10,),
+                                      Text("${weatherInfo["coord"]["lon"]}".substring(0,5),style: TextStyle(fontSize: 20),),
+                                    ],
+                                  ),Text("Location",style: TextStyle(fontSize: 10),)],),
+                                ),),
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                    
+                                Container(decoration: BoxDecoration(color: Color.fromARGB(199, 148, 147, 147),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(children: [Icon(Icons.air,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["wind"]["speed"]}",style: TextStyle(fontSize: 20),),Text("Wind Speed",style: TextStyle(fontSize: 10),)],),
+                                ),),
+                                SizedBox(width: 20,),
+                                Container(decoration: BoxDecoration(color: Color.fromARGB(199, 148, 147, 147),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(children: [Icon(Icons.directions_outlined,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["wind"]["deg"]}",style: TextStyle(fontSize: 20),),Text("degree",style: TextStyle(fontSize: 10),)],),
+                                ),),
+                              ],
+                            )
                       ],
                     ),
-                  ],
-                ),
+                ],
+              ),
     );
   }
 }

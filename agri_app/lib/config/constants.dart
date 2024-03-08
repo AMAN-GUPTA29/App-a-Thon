@@ -9,4 +9,5 @@ class Constants {
   static const loginbackground="assets/loginimage.png";
   static const logonew="assets/logo-no-backgroundnew.png";
   static const wether="assets/wether.jpeg";
+  static const house="assets/House.png";
 }
