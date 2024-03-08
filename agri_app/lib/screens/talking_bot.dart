@@ -43,10 +43,14 @@ class _TalkbotState extends State<Talkbot> {
       _confidenceLevel = result.confidence;
     });
     if (_speechToText.isNotListening) {
+      setState(() {
+        loading = true;
+      });
       GenerateContentResponse temp2 =
           await apiService.sendMessageGemini(text: result.recognizedWords);
       setState(() {
         responseText = temp2.text!;
+        loading = false;
       });
     }
   }
@@ -95,18 +99,23 @@ class _TalkbotState extends State<Talkbot> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Text(
                 _wordsSpoken,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
               ),
             ),
-            if (_speechToText.isNotListening && _confidenceLevel > 0)
-              Container(padding: EdgeInsets.all(16), child: Text(responseText)),
+            loading?
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: const Text('Loading...'),
+              )
+            :
+              Container(padding: const EdgeInsets.all(16), child: Text(responseText)),
             if (_speechToText.isNotListening && _confidenceLevel > 0)
               Container(
-                padding: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: Text(
                   "Confidence : ${(_confidenceLevel * 100).toStringAsFixed(1)}%",
                   style: const TextStyle(
