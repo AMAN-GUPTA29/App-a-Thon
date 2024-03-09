@@ -5,6 +5,7 @@ import 'package:agri_app/screens/helper_bot.dart';
 import 'package:agri_app/screens/schemes_screen.dart';
 import 'package:agri_app/screens/shop_screen.dart';
 import 'package:agri_app/screens/test.dart';
+import 'package:agri_app/screens/todo_screen.dart';
 import 'package:agri_app/screens/weather.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -260,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const ShopScreen()));},child: functionalityWidget("assets/farmu.jpg", "Utility Shop")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Chatbot()));},child: functionalityWidget("assets/chatbot.jpg", "Kisan Mitra")),
+                        builder: (context) => const ToDoScreen()));},child: functionalityWidget("assets/todo.png", "Todo List")),
                           ],
                         ),
                       ),

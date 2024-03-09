@@ -4,6 +4,7 @@ import 'package:agri_app/screens/form_screen.dart';
 import 'package:agri_app/screens/schemes_screen.dart';
 import 'package:agri_app/screens/shop_screen.dart';
 import 'package:agri_app/screens/talking_bot.dart';
+import 'package:agri_app/screens/todo_screen.dart';
 import 'package:agri_app/screens/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_app/screens/test.dart';
@@ -85,6 +86,12 @@ class DrawerWidget extends StatelessWidget {
                     Icons.mic,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Talkbot()))),
+const Divider(color: Colors.grey,),
+                        listItem(
+                    "ToDo-List",
+                    Icons.list,
+                    () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const ToDoScreen())))
                     
 
 
