@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SignInProvider()),
         ChangeNotifierProvider(create: (_) => UserDataProvider()),
       ],
-      child: MaterialApp(
+      child: MaterialApp( 
         debugShowCheckedModeBanner: false,
         title: 'Farm Hub',
         theme: ThemeData(
