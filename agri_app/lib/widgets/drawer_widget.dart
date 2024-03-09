@@ -65,7 +65,7 @@ class DrawerWidget extends StatelessWidget {
                 const Divider(color: Colors.grey,),
                 listItem(
                     "Kisan Mitra",
-                    Icons.chat_bubble_outline_rounded,
+                    Icons.keyboard_alt_outlined,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Chatbot()))),
                         const Divider(color: Colors.grey,),

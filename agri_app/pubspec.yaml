@@ -110,6 +110,8 @@ flutter:
     - "assets/farmu.jpg"
     - "assets/plant-sprout.json"
     - "assets/todo.png"
+    - "assets/mic1.png"
+    - "assets/keyboard1.png"
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

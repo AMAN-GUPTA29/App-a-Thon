@@ -1,4 +1,5 @@
 import 'package:agri_app/config/constants.dart';
+import 'package:agri_app/screens/botselect.dart';
 import 'package:agri_app/screens/calender_screen.dart';
 import 'package:agri_app/screens/crop_detail_screen.dart';
 import 'package:agri_app/screens/helper_bot.dart';
@@ -255,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePageTest()));},child: functionalityWidget("assets/plantdieses.jpg", "Dieses Predictor")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Chatbot()));},child: functionalityWidget("assets/chatbot.jpg", "Kisan Mitra")),
+                        builder: (context) => const botselect()));},child: functionalityWidget("assets/chatbot.jpg", "Kisan Mitra")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const SchemesScreen()));},child: functionalityWidget("assets/slider1.jpg", "Govt Scheme")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
@@ -272,6 +273,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 
               ],
             ),
+            floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const botselect()));
+        },
+        tooltip: 'Listen',
+        backgroundColor: Color.fromARGB(100, 249, 228, 188),
+        child: Container(padding: EdgeInsets.all(5),
+          child: Image.asset(
+            "assets/bot.png" ,
+            
+          ),
+        ),
+      ),
           );
   }
 }
