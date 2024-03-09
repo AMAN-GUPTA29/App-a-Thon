@@ -65,6 +65,32 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void mldata() async {
+    setState(() {
+      loadingdata = true;
+    });
+
+    print("inside");
+    try {
+      var response4 = await Dio()
+          .get('https://192.168.137.1:5000/getmodeloutput');
+      if (response4.statusCode! >= 200 && response4.statusCode! <= 300) {
+        setState(() {
+          print(response4.data);
+          crops = response4.data;
+          print(crops.length);
+          print("insisde");
+        });
+      }
+    } catch (e) {
+      print("insssside");
+    }
+
+    setState(() {
+      loadingdata = false;
+    });
+  }
+
   List<int> list = [1, 2, 3, 4, 5];
 
   @override
@@ -159,17 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    const PopupMenuItem(
-                      value: FilterOptions.viewProfile,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Icons.person),
-                          SizedBox(width: 10),
-                          Text("View Profile"),
-                        ],
-                      ),
-                    ),
+                    
                   ],
                   icon: const Icon(Icons.more_vert),
                 ),
@@ -263,6 +279,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => const ShopScreen()));},child: functionalityWidget("assets/farmu.jpg", "Utility Shop")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const ToDoScreen()));},child: functionalityWidget("assets/todo.png", "Todo List")),
+                        // InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        // builder: (context) => const ShopScreen()));},child: functionalityWidget("assets/b2bs.jpeg", "Rent Market")),
                           ],
                         ),
                       ),

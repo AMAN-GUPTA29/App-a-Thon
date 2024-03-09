@@ -112,6 +112,7 @@ flutter:
     - "assets/todo.png"
     - "assets/mic1.png"
     - "assets/keyboard1.png"
+    - "assets/b2bs.jpeg"
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
