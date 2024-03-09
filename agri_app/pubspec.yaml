@@ -97,6 +97,8 @@ flutter:
     - assets/manharvest.jpg
     - assets/farmercrop.jpg
     - assets/logo-no-backgroundnew.png
+    - "assets/botl.png"
+    - "assets/bot.png"
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

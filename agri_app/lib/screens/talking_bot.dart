@@ -145,10 +145,12 @@ class _TalkbotState extends State<Talkbot> {
       floatingActionButton: FloatingActionButton(
         onPressed: _speechToText.isListening ? _stopListening : _startListening,
         tooltip: 'Listen',
-        backgroundColor: Colors.lightGreen,
-        child: Icon(
-          _speechToText.isNotListening ? Icons.mic_off : Icons.mic,
-          color: Colors.white,
+        backgroundColor: Color.fromARGB(100, 249, 228, 188),
+        child: Container(padding: EdgeInsets.all(5),
+          child: Image.asset(
+            _speechToText.isNotListening ? "assets/bot.png" : "assets/botl.png",
+            
+          ),
         ),
       ),
     );
