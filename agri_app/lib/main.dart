@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(),
           useMaterial3: true,
         ),
-        home:  AnimatedSplashScreen(splashTransition: SplashTransition.fadeTransition,duration: 5000,splash: Center(child:Container( child: FittedBox(child: Image.asset("assets/splash.gif",),fit: BoxFit.fill,),)), nextScreen: HomeConfig()),
+        home:  AnimatedSplashScreen(splashIconSize: 300,splashTransition: SplashTransition.fadeTransition,duration: 5000,splash: Center(child:Container(width: 200, child: FittedBox(child: ClipRRect(borderRadius: BorderRadius.circular(600), child: Image.asset("assets/splash.gif",)),),)), nextScreen: HomeConfig()),
       ),
     );
   }
