@@ -23,4 +23,6 @@ class Constants {
   static const splash="assets/splash.gif";
   static const harvest="assets/manharvest.jpg";
   static const farmercrop="assets/farmercrop.jpg";
+  static const botl="assets/botl.png";
+  static const bot="assets/bot.png";
 }

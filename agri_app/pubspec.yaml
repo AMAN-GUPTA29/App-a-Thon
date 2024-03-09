@@ -99,6 +99,8 @@ flutter:
     - assets/logo-no-backgroundnew.png
     - "assets/botl.png"
     - "assets/bot.png"
+    - "assets/yojana_1.jpg"
+    - "assets/farmu.jpg"
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,6 +2,8 @@ import 'package:agri_app/config/constants.dart';
 import 'package:agri_app/screens/calender_screen.dart';
 import 'package:agri_app/screens/crop_detail_screen.dart';
 import 'package:agri_app/screens/helper_bot.dart';
+import 'package:agri_app/screens/schemes_screen.dart';
+import 'package:agri_app/screens/shop_screen.dart';
 import 'package:agri_app/screens/test.dart';
 import 'package:agri_app/screens/weather.dart';
 import 'package:dio/dio.dart';
@@ -235,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // SizedBox(height: height * 0.02),
                       Container(
                         // margin: EdgeInsets.only(bottom: height * 0.05),
-                        height: height * 0.5,
+                        height: height * 0.95,
                         child: GridView(
                           physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
@@ -251,6 +253,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => const CalenderScreen()));},child: functionalityWidget("assets/calender.png", "Calender")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePageTest()));},child: functionalityWidget("assets/plantdieses.jpg", "Dieses Predictor")),
+                        InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Chatbot()));},child: functionalityWidget("assets/chatbot.jpg", "Kisan Mitra")),
+                        InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SchemesScreen()));},child: functionalityWidget("assets/slider1.jpg", "Govt Scheme")),
+                        InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ShopScreen()));},child: functionalityWidget("assets/farmu.jpg", "Utility Shop")),
                         InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Chatbot()));},child: functionalityWidget("assets/chatbot.jpg", "Kisan Mitra")),
                           ],

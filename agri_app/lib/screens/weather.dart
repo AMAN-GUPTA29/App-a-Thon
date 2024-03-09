@@ -97,7 +97,7 @@ class _WeatherState extends State<Weather> {
                     
                                 Container(decoration: BoxDecoration(color: Color.fromARGB(100, 201, 199, 199),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(children: [Icon(Icons.visibility,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["visibility"]}",style: TextStyle(fontSize: 20),),Text("Visibility",style: TextStyle(fontSize: 10),)],),
+                                  child: Column(children: [Icon(Icons.visibility,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["visibility"]} Km",style: TextStyle(fontSize: 20),),Text("Visibility",style: TextStyle(fontSize: 10),)],),
                                 ),),
                                 SizedBox(width: 20,),
                                 Container(decoration: BoxDecoration(color: Color.fromARGB(100, 201, 199, 199),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
@@ -120,12 +120,12 @@ class _WeatherState extends State<Weather> {
                     
                                 Container(decoration: BoxDecoration(color: Color.fromARGB(100, 201, 199, 199),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(children: [Icon(Icons.air,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["wind"]["speed"]}",style: TextStyle(fontSize: 20),),Text("Wind Speed",style: TextStyle(fontSize: 10),)],),
+                                  child: Column(children: [Icon(Icons.air,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["wind"]["speed"]} Kmph",style: TextStyle(fontSize: 20),),Text("Wind Speed",style: TextStyle(fontSize: 10),)],),
                                 ),),
                                 SizedBox(width: 20,),
                                 Container(decoration: BoxDecoration(color: Color.fromARGB(100, 201, 199, 199),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(children: [Icon(Icons.directions_outlined,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["wind"]["deg"]}",style: TextStyle(fontSize: 20),),Text("degree",style: TextStyle(fontSize: 10),)],),
+                                  child: Column(children: [Icon(Icons.directions_outlined,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["wind"]["deg"]}",style: TextStyle(fontSize: 20),),Text("degree due north",style: TextStyle(fontSize: 10),)],),
                                 ),),
                               ],
                             )
