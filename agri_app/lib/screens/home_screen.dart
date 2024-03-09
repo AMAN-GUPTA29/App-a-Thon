@@ -1,5 +1,6 @@
 import 'package:agri_app/config/constants.dart';
 import 'package:agri_app/screens/calender_screen.dart';
+import 'package:agri_app/screens/crop_detail_screen.dart';
 import 'package:agri_app/screens/helper_bot.dart';
 import 'package:agri_app/screens/test.dart';
 import 'package:agri_app/screens/weather.dart';
@@ -202,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             for (var item in crops)
                               InkWell(
-                                  onTap: () {},
+                                  onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CropDetailScreen(id: item["id"].toString(), cropData: crops)));},
                                   child:
                                       cropWidget(item["imageUrl"], item["name"], 10)),
                             // cropWidget(Constants.bananaImage, "Banana", 10),

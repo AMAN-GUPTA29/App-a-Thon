@@ -20,10 +20,10 @@ class DrawerWidget extends StatelessWidget {
       return SizedBox(
         width: double.infinity,
         child: TextButton.icon(
-          style: TextButton.styleFrom(alignment: Alignment.centerLeft),
+          style: TextButton.styleFrom(alignment: Alignment.centerLeft,iconColor: Color.fromARGB(255, 77, 77, 77)),
             onPressed: tapHandler,
             icon: Icon(icon),
-            label: Text(text)),
+            label: Text(text,style: TextStyle(color: Color.fromARGB(255, 119, 119, 119)),)),
       );
     }
 
@@ -49,48 +49,43 @@ class DrawerWidget extends StatelessWidget {
                     Icons.calendar_month,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const CalenderScreen()))),
-                const Divider(),
+                const Divider(color: Colors.grey,),
                 listItem(
                     "Weather Info",
                     Icons.cloud,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Weather()))),
-                const Divider(),
+                const Divider(color: Colors.grey,),
                 listItem(
                     "Disease detection",
                     Icons.coronavirus,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePageTest()))),
-                const Divider(),
+                const Divider(color: Colors.grey,),
                 listItem(
                     "Kisan Mitra",
                     Icons.chat_bubble_outline_rounded,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Chatbot()))),
-                        const Divider(),
+                        const Divider(color: Colors.grey,),
                         listItem(
                     "Government Schemes",
                     Icons.schema,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const SchemesScreen()))),
-                         const Divider(),
+                        const Divider(color: Colors.grey,),
                         listItem(
                     "Shop",
                     Icons.shopping_cart,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const ShopScreen()))),
-                         const Divider(),
+                         const Divider(color: Colors.grey,),
                 listItem(
                     "Kisan Mitra",
                     Icons.mic,
                     () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Talkbot()))),
-                        const Divider(),
-                listItem(
-                    "Form",
-                    Icons.file_copy,
-                    () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const FormScreen()))),
+                    
 
 
               ],

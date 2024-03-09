@@ -60,105 +60,123 @@ class CalenderScreen extends StatelessWidget {
     ];
     return Scaffold(
       appBar: AppBar(title: const Text("Crop Calender")),
-      body: Column(
+      body: Stack(
+
         children: [
-          Image.asset("assets/farmercrop.jpg",height: 120,),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              "Total Land Area: ${userProvider.landArea} Hectare",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(0),
-            child: Text(
-              "Total Crops You Grow ${userProvider.cropDetail.length} ",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                final cropName = userProvider.cropDetail.keys.toList()[index];
-                final sowingDate = userProvider.cropDetail[cropName];
-                final harvestingDate = _calculateHarvestingDate(
-                    cropName, DateTime.parse(sowingDate!), harvestingDates);
-                final imageLink = harvestingDates.firstWhere((element) => element.cropName == cropName).link;
-                final manure = harvestingDates.firstWhere((element) => element.cropName == cropName).manure;
-                final storage = harvestingDates.firstWhere((element) => element.cropName == cropName).storage;
-                final irrigation = harvestingDates.firstWhere((element) => element.cropName == cropName).irrigation;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 16.0),
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Container(color: Colors.white,
-                      child: ListTile(
-                        title: Text(
-                          "Crop: $cropName",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+          Container(height: double.infinity,width: double.infinity,decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter,
+                  colors: [
+                    Colors.white,
+                    Color.fromARGB(100, 249, 228, 188),
+                  ],
+                  stops: [
+                    0.0,
+                    1.0
+                  ])),),
+          Column(
+            children: [
+              Image.asset("assets/farmercrop.jpg",height: 120,),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Total Land Area: ${userProvider.landArea} Hectare",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: Text(
+                  "Total Crops You Grow ${userProvider.cropDetail.length} ",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    final cropName = userProvider.cropDetail.keys.toList()[index];
+                    final sowingDate = userProvider.cropDetail[cropName];
+                    final harvestingDate = _calculateHarvestingDate(
+                        cropName, DateTime.parse(sowingDate!), harvestingDates);
+                    final imageLink = harvestingDates.firstWhere((element) => element.cropName == cropName).link;
+                    final manure = harvestingDates.firstWhere((element) => element.cropName == cropName).manure;
+                    final storage = harvestingDates.firstWhere((element) => element.cropName == cropName).storage;
+                    final irrigation = harvestingDates.firstWhere((element) => element.cropName == cropName).irrigation;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 16.0),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(imageLink,),
-                            SizedBox(height: 20,),
-                            Row(mainAxisAlignment: MainAxisAlignment.center,
+                        child: Container(color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              "Crop: $cropName",
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "Sowing Date: ${formattedDate(DateTime.parse(sowingDate))}\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center),
-                                  ),
-                                ),SizedBox(width: 10,),
-                                
-                                    Container(
-                                     decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
+                                Image.asset(imageLink,),
+                                SizedBox(height: 20,),
+                                Row(mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                                                        "Harvesting Date: ${formattedDate(DateTime.parse(harvestingDate))}\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center),
+                                            "Sowing Date: ${formattedDate(DateTime.parse(sowingDate))}\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center),
                                       ),
-                                    ),
-                              ],
-                            ),
-                            SizedBox(height: 20,),
-                            Row(mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "Manure: $manure\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center),
-                                  ),
-                                ),SizedBox(width: 10,),
-                                
-                                    Container(
-                                     decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
+                                    ),SizedBox(width: 10,),
+                                    
+                                        Container(
+                                         decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                                            "Harvesting Date: ${formattedDate(DateTime.parse(harvestingDate))}\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center),
+                                          ),
+                                        ),
+                                  ],
+                                ),
+                                SizedBox(height: 20,),
+                                Row(mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text("Irrigation: $irrigation\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center,),
+                                        child: Text(
+                                            "Manure: $manure\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center),
                                       ),
-                                    ),
+                                    ),SizedBox(width: 10,),
+                                    
+                                        Container(
+                                         decoration: BoxDecoration(color: Color.fromARGB(255, 228, 228, 228),borderRadius: BorderRadius.circular(10)),width: 130,height: 60,alignment: Alignment.center,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text("Irrigation: $irrigation\n",style: TextStyle(fontWeight: FontWeight.w700 ),textAlign: TextAlign.center,),
+                                          ),
+                                        ),
+                                  ],
+                                ),
+                                SizedBox(height: 20,),
+                                
+                                Text("Storage: $storage\n"),
                               ],
                             ),
-                            SizedBox(height: 20,),
-                            
-                            Text("Storage: $storage\n"),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              },
-              itemCount: userProvider.cropDetail.length,
-            ),
+                    );
+                  },
+                  itemCount: userProvider.cropDetail.length,
+                ),
+              ),
+            ],
           ),
         ],
       ),

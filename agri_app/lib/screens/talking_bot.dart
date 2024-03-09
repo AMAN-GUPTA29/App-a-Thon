@@ -78,52 +78,69 @@ class _TalkbotState extends State<Talkbot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.white,
         title: const Text(
           'Talk with Kisan Mitra',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black,fontSize: 20),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                _speechToText.isListening
-                    ? 'Listening...'
-                    : _speechEnabled
-                        ? 'Tap the mic to start listening...'
-                        : 'Speech not available',
-                style: const TextStyle(fontSize: 20.0),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                _wordsSpoken,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
-              ),
-            ),
-            loading?
-              Container(
-                padding: const EdgeInsets.all(16),
-                child: const Text('Loading...'),
-              )
-            :
-              Container(padding: const EdgeInsets.all(16), child: Text(responseText)),
-            if (_speechToText.isNotListening && _confidenceLevel > 0)
-              Container(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Text(
-                  "Confidence : ${(_confidenceLevel * 100).toStringAsFixed(1)}%",
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w200),
+      body: Stack(
+        children: [
+          Container(height: double.infinity,width: double.infinity,decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter,
+                  colors: [
+                    Colors.white,
+                    Color.fromARGB(100, 249, 228, 188),
+                  ],
+                  stops: [
+                    0.0,
+                    1.0
+                  ])),),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    _speechToText.isListening
+                        ? 'Listening...'
+                        : _speechEnabled
+                            ? 'Tap the mic to start listening...'
+                            : 'Speech not available',
+                    style: const TextStyle(fontSize: 20.0),
+                  ),
                 ),
-              )
-          ],
-        ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    _wordsSpoken,
+                    style:
+                        const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  ),
+                ),
+                loading?
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Loading...'),
+                  )
+                :
+                  Container(padding: const EdgeInsets.all(16), child: Text(responseText)),
+                if (_speechToText.isNotListening && _confidenceLevel > 0)
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: Text(
+                      "Confidence : ${(_confidenceLevel * 100).toStringAsFixed(1)}%",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w200),
+                    ),
+                  )
+              ],
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _speechToText.isListening ? _stopListening : _startListening,
