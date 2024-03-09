@@ -1,4 +1,9 @@
+import 'package:agri_app/config/constants.dart';
 import 'package:agri_app/screens/calender_screen.dart';
+import 'package:agri_app/screens/form_screen.dart';
+import 'package:agri_app/screens/schemes_screen.dart';
+import 'package:agri_app/screens/shop_screen.dart';
+import 'package:agri_app/screens/talking_bot.dart';
 import 'package:agri_app/screens/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_app/screens/test.dart';
@@ -27,12 +32,12 @@ class DrawerWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            Container(
-              height: height * 0.13,
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                "FarmHub",
-                style: Theme.of(context).textTheme.headlineLarge,
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Container(
+                height: height * 0.13,
+                alignment: Alignment.bottomCenter,
+                child: Image.asset(Constants.logonew, height: height * 0.15),
               ),
             ),
             Column(
@@ -61,7 +66,33 @@ class DrawerWidget extends StatelessWidget {
                     "Kisan Mitra",
                     Icons.chat_bubble_outline_rounded,
                     () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Chatbot())))
+                        builder: (context) => const Chatbot()))),
+                        const Divider(),
+                        listItem(
+                    "Government Schemes",
+                    Icons.schema,
+                    () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => const SchemesScreen()))),
+                         const Divider(),
+                        listItem(
+                    "Shop",
+                    Icons.shopping_cart,
+                    () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => const ShopScreen()))),
+                         const Divider(),
+                listItem(
+                    "Kisan Mitra",
+                    Icons.mic,
+                    () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Talkbot()))),
+                        const Divider(),
+                listItem(
+                    "Form",
+                    Icons.file_copy,
+                    () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const FormScreen()))),
+
+
               ],
             ),
           ],

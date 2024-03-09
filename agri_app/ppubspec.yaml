@@ -49,9 +49,7 @@ dependencies:
   google_generative_ai: ^0.2.2
   intl: ^0.18.1
   dash_chat_2: ^0.0.20
-  speech_to_text: ^6.6.0
   carousel_slider: ^4.2.1
-  animated_splash_screen: ^1.3.0
 
 
 dev_dependencies:
@@ -90,14 +88,6 @@ flutter:
     - assets/slider3.jpg
     - assets/slider4.jpg
     - assets/slider5.jpg
-    - assets/rice.jpg
-    - assets/wheat.jpg
-    - assets/maize.jpeg
-    - assets/splash.gif
-    - assets/manharvest.jpg
-    - assets/farmercrop.jpg
-    - assets/logo-no-backgroundnew.png
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

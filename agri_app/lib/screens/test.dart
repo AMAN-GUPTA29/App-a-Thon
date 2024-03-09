@@ -92,92 +92,11 @@ class _MyHomePageState extends State<HomePageTest> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(appBar: AppBar(title: Text("Disese Predictor"),),
       body: Column(
         children: <Widget>[
           const SizedBox(height: 20),
-          Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.23,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    // Top right corner
-                    bottomLeft: Radius.circular(50.0), // Bottom right corner
-                  ),
-                  color: themeColor,
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    // Top right corner
-                    bottomLeft: Radius.circular(50.0), // Bottom right corner
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      // Shadow color with some transparency
-                      spreadRadius: 1,
-                      // Extend the shadow to all sides equally
-                      blurRadius: 5,
-                      // Soften the shadow
-                      offset: const Offset(2, 2), // Position of the shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        _pickImage(ImageSource.gallery);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: themeColor,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'OPEN GALLERY',
-                            style: TextStyle(color: textColor),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(
-                            Icons.image,
-                            color: textColor,
-                          )
-                        ],
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _pickImage(ImageSource.camera);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: themeColor,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('START CAMERA',
-                              style: TextStyle(color: textColor)),
-                          const SizedBox(width: 10),
-                          Icon(Icons.camera_alt, color: textColor)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          
           _selectedImage == null
               ? Container(
                   height: MediaQuery.of(context).size.height * 0.5,
@@ -185,6 +104,7 @@ class _MyHomePageState extends State<HomePageTest> {
                 )
               : Expanded(
                   child: Container(
+                    height: MediaQuery.of(context).size.height * 0.8,
                     width: double.infinity,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -268,7 +188,7 @@ class _MyHomePageState extends State<HomePageTest> {
                       )
                     : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: const Color.fromARGB(255, 157, 157, 158),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),
                         ),
@@ -284,7 +204,92 @@ class _MyHomePageState extends State<HomePageTest> {
                       ),
               ],
             ),
-          const SizedBox(height: 30),
+            Expanded(flex: 1,
+         child: Container(),
+            ),
+            Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.23,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    // Top right corner
+                    bottomLeft: Radius.circular(50.0), // Bottom right corner
+                  ),
+                  color: themeColor,
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.only(
+                    // Top right corner
+                    bottomLeft: Radius.circular(50.0), // Bottom right corner
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      // Shadow color with some transparency
+                      spreadRadius: 1,
+                      // Extend the shadow to all sides equally
+                      blurRadius: 5,
+                      // Soften the shadow
+                      offset: const Offset(2, 2), // Position of the shadow
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {
+                        _pickImage(ImageSource.gallery);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: themeColor,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'OPEN GALLERY',
+                            style: TextStyle(color: textColor),
+                          ),
+                          const SizedBox(width: 10),
+                          Icon(
+                            Icons.image,
+                            color: textColor,
+                          )
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _pickImage(ImageSource.camera);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: themeColor,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('START CAMERA',
+                              style: TextStyle(color: textColor)),
+                          const SizedBox(width: 10),
+                          Icon(Icons.camera_alt, color: textColor)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          // const SizedBox(height: 30),
         ],
       ),
     );

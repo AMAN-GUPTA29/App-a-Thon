@@ -15,6 +15,8 @@ class FormScreenState extends State<FormScreen> {
   late Map<String, String> cropDetail = {};
   late double landArea;
 
+  final formKey = GlobalKey<FormState>();
+
   List<String> predefinedCrops = ['Maize', 'Rice', 'Wheat'];
   List<String> selectedCrops = [];
   Map<String, DateTime> sowingDates = {};
@@ -22,8 +24,12 @@ class FormScreenState extends State<FormScreen> {
   int count = 1;
 
   void formHandler() {
+    bool? isValidate = formKey.currentState?.validate();
+    if (isValidate == null || !isValidate) {
+      return;
+    }
     for (int i = 0; i < selectedCrops.length; i++) {
-      cropDetail[selectedCrops[i]] = sowingDates[selectedCrops[i]].toString()!;
+      cropDetail[selectedCrops[i]] = sowingDates[selectedCrops[i]].toString();
     }
     Provider.of<UserDataProvider>(context, listen: false)
         .setData(name, cropDetail, landArea);
@@ -35,103 +41,150 @@ class FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Crop Details Form'),
+        title: const Text('Farmer Details Form'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Name'),
-              onChanged: (value) {
-                setState(() {
-                  name = value;
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-            Column(
-              children: List.generate(count, (index) {
-                final crop =
-                    selectedCrops.length > index ? selectedCrops[index] : null;
-                return Column(
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Image.asset("assets/manharvest.jpg"),
+              Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    DropdownButtonFormField<String>(
-                      key: ValueKey<String>('crop_$index'),
-                      decoration:
-                          const InputDecoration(labelText: 'Crop Detail'),
-                      value: crop,
-                      onChanged: (String? newValue) {
-                        if (newValue != null) {
-                          setState(() {
-                            selectedCrops.add(newValue);
-                          });
-                          _selectDate(context, newValue);
-                        }
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: 'Name'),
+                      onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
                       },
-                      items: predefinedCrops.map((crop) {
-                        return DropdownMenuItem<String>(
-                          value: crop,
-                          child: Text(crop),
-                        );
-                      }).toList(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter a valid name!";
+                        }
+                        return null;
+                      },
                     ),
-                    if (sowingDates.containsKey(crop))
-                      Text(
-                          'Sown Date: ${sowingDates[crop].toString().substring(0, 11)}'),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
+                    Column(
+                      children: List.generate(count, (index) {
+                        final crop = selectedCrops.length > index
+                            ? selectedCrops[index]
+                            : null;
+                        return Column(
+                          children: [
+                            DropdownButtonFormField<String>(
+                              key: ValueKey<String>('crop_$index'),
+                              decoration:
+                                  const InputDecoration(labelText: 'Crop Detail'),
+                              value: crop,
+                              onChanged: (String? newValue) {
+                                if (newValue != null) {
+                                  setState(() {
+                                    selectedCrops.add(newValue);
+                                  });
+                                  _selectDate(context, newValue);
+                                }
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please select an option!";
+                                }
+                                return null;
+                              },
+                              items: predefinedCrops.map((crop) {
+                                return DropdownMenuItem<String>(
+                                  value: crop,
+                                  child: Text(crop),
+                                );
+                              }).toList(),
+                            ),
+                            if (sowingDates.containsKey(crop))
+                              Text(
+                                  'Sown Date: ${sowingDates[crop].toString().substring(0, 11)}'),
+                            const SizedBox(height: 10),
+                          ],
+                        );
+                      }),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        if (count <= 2)
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.blue,
+                            ),
+                            onPressed: () => setState(() => count++),
+                            icon: const Icon(Icons.add),
+                            label: const Text("Add More Crop"),
+                          ),
+                        if (count >= 2)
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.red,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                count--;
+                              });
+                              setState(() {
+                                final lastCrop = selectedCrops.removeLast();
+                                sowingDates.remove(lastCrop);
+                              });
+                            },
+                            icon: const Icon(Icons.remove),
+                            label: const Text("Remove Crop"),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const Text('Land Area:\n(in acres)'),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration:
+                                const InputDecoration(labelText: 'Enter Land Area'),
+                            onChanged: (value) {
+                              setState(() {
+                                landArea = double.parse(value);
+                              });
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter a valid number!";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    SizedBox(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.green,
+                        ),
+                        onPressed: formHandler,
+                        child: const Text('Submit'),
+                      ),
+                    ),
                   ],
-                );
-              }),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                if (count <= 2)
-                  ElevatedButton.icon(
-                    onPressed: () => setState(() => count++),
-                    icon: const Icon(Icons.add),
-                    label: const Text("Add More Crop"),
-                  ),
-                if (count >= 1)
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        count--;
-                        final lastCrop = selectedCrops.removeLast();
-                        sowingDates.remove(lastCrop);
-                      });
-                    },
-                    icon: const Icon(Icons.remove),
-                    label: const Text("Remove Crop"),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                const Text('Land Area:'),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration:
-                        const InputDecoration(labelText: 'Enter Land Area'),
-                    onChanged: (value) {
-                      setState(() {
-                        landArea = double.parse(value);
-                      });
-                    },
-                  ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: formHandler,
-              child: const Text('Submit'),
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -147,7 +200,7 @@ class FormScreenState extends State<FormScreen> {
     if (picked != null) {
       setState(() {
         sowingDates[crop] = picked;
-      });
-    }
-  }
+     });
+}
+}
 }

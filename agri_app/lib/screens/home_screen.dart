@@ -1,4 +1,7 @@
 import 'package:agri_app/config/constants.dart';
+import 'package:agri_app/screens/calender_screen.dart';
+import 'package:agri_app/screens/helper_bot.dart';
+import 'package:agri_app/screens/test.dart';
 import 'package:agri_app/screens/weather.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../provider/signin_provider.dart';
 
@@ -56,9 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  List<int> list = [1, 2, 3, 4, 5];
+
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     final signInProvider = Provider.of<SignInProvider>(context, listen: true);
 
     if (signInProvider.isLoading) {
@@ -77,8 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.black,
-                    child: Container(
-                        height: 50, width: 50, child: Image.network(image)),
+                    backgroundImage: NetworkImage(image),
+                    // child: Container(
+                    //     height: 50, width: 50, child: FittedBox(fit: BoxFit.fill,child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(50)),child: Image.network(image,fit: BoxFit.cover,)))),
                     minRadius: 30,
                   ), // Only show the text if count is not null
                 ],
@@ -96,14 +104,21 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(8),
         child: InkWell(
           child: Container(
+            
             child: Card(
+              
+              // color: Colors.grey.shade100,
               elevation: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(height: height*0.36,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image.asset(image,fit: BoxFit.fill,)),),
-                  Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
+              child: Container(
+                
+                decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(height: height*0.16,width: width*0.4,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image.asset(image,fit: BoxFit.fill,)),),
+                    Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
               ),
             ),
           ),
@@ -118,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           )
         : Scaffold(
-            appBar: AppBar(backgroundColor:  Color.fromARGB(100, 165, 59, 0),
+            appBar: AppBar(
               title: const Text("Farm Hub"),
               actions: [
                 PopupMenuButton(
@@ -164,8 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   begin: FractionalOffset.topCenter,
                   end: FractionalOffset.bottomCenter,
                   colors: [
-                    Color.fromARGB(100, 165, 59, 0),
-                    Color.fromARGB(180, 26, 85, 42),
+                    Colors.white,
+                    Color.fromARGB(100, 249, 228, 188),
                   ],
                   stops: [
                     0.0,
@@ -182,13 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             const Column(
                               children: [
-                                CircleAvatar(
-                                  backgroundColor: Colors.lightGreen,
-                                  minRadius: 30,
-                                  child: Icon(Icons.add),
-                                ),
-                                SizedBox(height: 5),
-                                Text("Add"),
+                                
                               ],
                             ),
                             for (var item in crops)
@@ -203,18 +212,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.03),
+
                       Container(
-                        padding: const EdgeInsets.all(8),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(Constants.smartFarmerImage),
-                        ),
+          child: CarouselSlider(
+        options: CarouselOptions(autoPlay: true,autoPlayInterval: Duration(seconds: 3),aspectRatio: 2,enlargeCenterPage: true),
+        items: list
+            .map((item) => Container(width: width,height: height*0.12,
+                  child: FittedBox(child: Center(child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(20)),child: Image.asset("assets/slider$item.jpg",))),fit: BoxFit.fill,),
+                  // color: Colors.green,
+                ))
+            .toList(),
+      )),
+                      
+                      SizedBox(height: 40,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(child: Text("Services",style: TextStyle(fontSize: 24),),),
+                        ],
                       ),
-                      SizedBox(height: height * 0.05),
+                      // SizedBox(height: height * 0.02),
                       Container(
-                        margin: EdgeInsets.only(top: height * 0.05),
-                        height: height * 0.8,
+                        // margin: EdgeInsets.only(bottom: height * 0.05),
+                        height: height * 0.5,
                         child: GridView(
+                          physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -224,13 +246,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Weather()));},child: functionalityWidget("assets/wether.jpeg", "Weather")),
-                           
+                             InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const CalenderScreen()));},child: functionalityWidget("assets/calender.png", "Calender")),
+                        InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomePageTest()));},child: functionalityWidget("assets/plantdieses.jpg", "Dieses Predictor")),
+                        InkWell(onTap: (){Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Chatbot()));},child: functionalityWidget("assets/chatbot.jpg", "Kisan Mitra")),
                           ],
                         ),
                       ),
+                     
                     ],
                   ),
                 ),
+                
               ],
             ),
           );

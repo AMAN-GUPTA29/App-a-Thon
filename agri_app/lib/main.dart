@@ -1,4 +1,6 @@
 import 'package:agri_app/provider/userdata_provider.dart';
+import 'package:agri_app/screens/splashscreen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(),
           useMaterial3: true,
         ),
-        home: const HomeConfig(),
+        home:  AnimatedSplashScreen(splashTransition: SplashTransition.fadeTransition,duration: 5000,splash: Center(child:Container( child: FittedBox(child: Image.asset("assets/splash.gif",),fit: BoxFit.fill,),)), nextScreen: HomeConfig()),
       ),
     );
   }
