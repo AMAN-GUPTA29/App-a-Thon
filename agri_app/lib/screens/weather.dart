@@ -75,12 +75,12 @@ class _WeatherState extends State<Weather> {
                             ),
                             const SizedBox(width:5,),
                             Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("${weatherInfo["weather"][0]["description"]} today".toUpperCase(),style: TextStyle(fontFamily: "Roberto",fontSize:17),),   
-                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Humidity ${weatherInfo["main"]["humidity"]}",style: TextStyle(fontFamily: "Roberto",fontSize: 20),)],),
-                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Temprature ${weatherInfo["main"]["temp"]}",style: TextStyle(fontFamily: "Roberto",fontSize: 20),)],)],),
+                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Humidity ${weatherInfo["main"]["humidity"]} %",style: TextStyle(fontFamily: "Roberto",fontSize: 20),)],),
+                            Column(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Temprature ${weatherInfo["main"]["temp"]}°C",style: TextStyle(fontFamily: "Roberto",fontSize: 20),)],)],),
                          
                           ],
                         ),
-                        Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Minimum Temprature ${weatherInfo["main"]["temp_min"]}",style: TextStyle(fontSize: 14),),SizedBox(width:20,),Text("Max Temprature ${weatherInfo["main"]["temp_max"]} ",style: TextStyle(fontSize: 14),)],),
+                        Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("Minimum Temprature ${weatherInfo["main"]["temp_min"]}°C",style: TextStyle(fontSize: 14),),SizedBox(width:20,),Text("Max Temprature ${weatherInfo["main"]["temp_max"]}°C",style: TextStyle(fontSize: 14),)],),
                         SizedBox(height: 20,),
                         Container(
                               height: 100,
@@ -97,7 +97,7 @@ class _WeatherState extends State<Weather> {
                     
                                 Container(decoration: BoxDecoration(color: Color.fromARGB(100, 201, 199, 199),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(children: [Icon(Icons.visibility,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["visibility"]} Km",style: TextStyle(fontSize: 20),),Text("Visibility",style: TextStyle(fontSize: 10),)],),
+                                  child: Column(children: [Icon(Icons.visibility,size: 28,),SizedBox(height: 4,),Text("${weatherInfo["visibility"]} m",style: TextStyle(fontSize: 20),),Text("Visibility",style: TextStyle(fontSize: 10),)],),
                                 ),),
                                 SizedBox(width: 20,),
                                 Container(decoration: BoxDecoration(color: Color.fromARGB(100, 201, 199, 199),borderRadius: BorderRadius.all(Radius.circular(20))),alignment: Alignment.center,height: 120,width: 140,child: Padding(

@@ -24,6 +24,14 @@ class _ChatbotState extends State<Chatbot> {
     ChatMessage(
         user: ChatUser(id: '0', firstName: 'Default'),
         createdAt: DateTime.now(),
+        text: "किसान मित्र हिंदी में भी उपलब्ध है !!!"),
+    ChatMessage(
+        user: ChatUser(id: '0', firstName: 'Default'),
+        createdAt: DateTime.now(),
+        text: "नमस्ते, किसान! आज मैं आपकी खेती में कैसे सहायता कर सकता हूँ?"),
+    ChatMessage(
+        user: ChatUser(id: '0', firstName: 'Default'),
+        createdAt: DateTime.now(),
         text: 'Namaste, Kisan ! How can I assist you with your farming today?'),
     ChatMessage(
         user: ChatUser(id: '0', firstName: 'Default'),
@@ -78,8 +86,7 @@ class _ChatbotState extends State<Chatbot> {
       });
     } catch (error) {
       _showErrorSnackBar(error);
-    }
-    finally{
+    } finally {
       setState(() {
         typers = [];
       });
